@@ -243,9 +243,10 @@ public class ChanLoader implements Response.ErrorListener, Response.Listener<Cha
         clearTimer();
 
         ChanLoaderException loaderException = new ChanLoaderException(error);
-
-        for (ChanLoaderCallback l : listeners) {
-            l.onChanLoaderError(loaderException);
+        if (!loaderException.getClass().toString().equals("java.net.ConnectException")) {
+            for (ChanLoaderCallback l : listeners) {
+                l.onChanLoaderError(loaderException);
+            }
         }
     }
 
